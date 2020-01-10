@@ -18,7 +18,8 @@
 }
 .sidebar,
 .off-canvas-sidebar{
-    @include linear-gradient($primary-states, $primary);
+    @include 
+    linear-gradient($info, $info-states);
     height: calc(100vh - 90px);
     width: 230px;
     position: fixed;
@@ -54,7 +55,7 @@
           [data-toggle="collapse"] ~ div > ul > li > a{
               span{
                 display: inline-block;
-                // @extend .animation-transition-general;
+                @extend .animation-transition-general;
               }
 
               .sidebar-normal{
@@ -66,7 +67,8 @@
                 display: block;
                 line-height: 23px;
                 z-index: 1;
-                color: $opacity-8;
+                color: $opacity-5;
+                color:$white;
               }
 
               .sidebar-mini-icon{
@@ -115,7 +117,7 @@
       top: 2px;
       opacity: 1;
 
-      // @extend .animation-transition-general;
+      @extend .animation-transition-general;
     }
     .logo-tim{
       border-radius: 50%;
@@ -438,7 +440,7 @@
     width: $full-width;
     min-height: 100vh;
     border-top: 2px solid $primary;
-    background: linear-gradient($background-black, $background-states-black);
+    // background: linear-gradient($background-black, $background-states-black);
 
     @include transitions (0.50s, cubic-bezier(0.685, 0.0473, 0.346, 1));
 

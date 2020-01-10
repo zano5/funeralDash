@@ -8,7 +8,11 @@ import { Component, OnInit } from "@angular/core";
 export class AdminLayoutComponent implements OnInit {
   public sidebarColor: string = "red";
 
-  constructor() {}
+  constructor() {
+    var body = document.getElementsByTagName('body')[0];
+    body.classList.add('white-content');
+
+  }
   changeSidebarColor(color){
     var sidebar = document.getElementsByClassName('sidebar')[0];
     var mainPanel = document.getElementsByClassName('main-panel')[0];
