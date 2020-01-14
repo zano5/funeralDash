@@ -39,6 +39,12 @@ export const ROUTES: RouteInfo[] = [
     icon: "icon-align-center",
     class: ""
   },
+  {
+    path:"/signout",
+    title:"Sign Out",
+    icon:"icon-button-power",
+    class:""
+  }
 
 ];
 

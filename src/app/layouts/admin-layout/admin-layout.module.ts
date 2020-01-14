@@ -12,6 +12,7 @@ import { TablesComponent } from "../../pages/tables/tables.component";
 import { TypographyComponent } from "../../pages/typography/typography.component";
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { SignoutComponent } from 'src/app/pages/signout/signout.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     TablesComponent,
     TypographyComponent,
     NotificationsComponent,
+    SignoutComponent
   ]
 })
 export class AdminLayoutModule {}

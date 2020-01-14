@@ -14,6 +14,9 @@
                     <span class="error ion-padding" *ngIf="SignForm.get('email').hasError('pattern')">
                         Email address format not valid
                     </span>
+                    <span class="error" *ngIf="SignForm.get('email').hasError('required') && SignForm.get('email').touched">
+                        Please input your password
+                    </span>
                     <mat-form-field class="example-full-width">
                         <input type="password" formControlName="password" matInput placeholder="Password">
                     </mat-form-field>
@@ -28,7 +31,7 @@
                     </span>
                 </mat-card-content>
                 <br><br>
-                <button type="submit" mat-stroked-button color="primary" class="btn-block">Sign in</button>
+                <button type="submit" mat-stroked-button [disabled]="!SignForm.valid" color="primary" class="btn-block">Sign in</button>
             </form>
             <br>
             <a>If you don't have account

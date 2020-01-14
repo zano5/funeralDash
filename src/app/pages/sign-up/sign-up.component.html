@@ -30,7 +30,7 @@
                       Email address format not valid
                   </span>
                     <mat-form-field class="example-full-width">
-                        <input formControlName="mobilenumber" matInput placeholder="Mobile Number">
+                        <input type="tel" formControlName="mobilenumber" matInput placeholder="Mobile Number">
                     </mat-form-field>
                     <span class="error ion-padding" *ngIf="SignForm.get('mobilenumber').hasError('minlength') && SignForm.get('mobilenumber').touched">
                       Mobile number must be 10 chars long
@@ -55,7 +55,7 @@
                   </span>
                 </mat-card-content>
                 <br><br>
-                <button type="submit" mat-stroked-button color="primary" class="btn-block">Sign Up</button>
+                <button type="submit" mat-stroked-button color="primary" [disabled]="!SignForm.valid" class="btn-block">Sign Up</button>
             </form>
             <br>
             <a>If you already have account
