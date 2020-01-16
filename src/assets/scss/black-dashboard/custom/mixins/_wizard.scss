@@ -1,6 +1,6 @@
 @mixin set-wizard-color($color) {
       .progress-with-circle .progress-bar{
-          background: $color;
+          // background: $color;
       }
 
       .nav-pills .nav-item .nav-link{
@@ -8,7 +8,7 @@
 
         &.checked, &.active{
           background: $color;
-          color: white;
+          // color: white;
         }
         &:hover{
           background: $white;

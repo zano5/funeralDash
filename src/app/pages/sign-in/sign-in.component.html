@@ -1,0 +1,41 @@
+<div class="body">
+    <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+        <mat-card class="box">
+            <mat-card-header>
+                <mat-card-title>Sign in</mat-card-title>
+            </mat-card-header>
+
+            <form class="example-form" [formGroup]="SignForm" (ngSubmit)="Submit()">
+                <mat-card-content>
+                    <mat-form-field class="example-full-width">
+                        <input formControlName="email" matInput placeholder="Email">
+                    </mat-form-field>
+                    <span class="error ion-padding" *ngIf="SignForm.get('email').hasError('pattern')">
+                        Email address format not valid
+                    </span>
+                    <span class="error" *ngIf="SignForm.get('email').hasError('required') && SignForm.get('email').touched">
+                        Please input your password
+                    </span>
+                    <mat-form-field class="example-full-width">
+                        <input type="password" formControlName="password" matInput placeholder="Password">
+                    </mat-form-field>
+                    <span class="error" *ngIf="SignForm.get('password').hasError('required') && SignForm.get('password').touched">
+                        Please input your password
+                    </span>
+                    <span class="error" *ngIf="SignForm.get('password').hasError('minlength') && SignForm.get('password').touched">
+                        Minimum 6 characters
+                    </span>
+                    <span class="error" *ngIf="SignForm.get('password').hasError('maxlength') && SignForm.get('password').touched">
+                        Maximum 12 characters
+                    </span>
+                </mat-card-content>
+                <br><br>
+                <button type="submit" mat-stroked-button [disabled]="!SignForm.valid" color="primary" class="btn-block">Sign in</button>
+            </form>
+            <br>
+            <a class="text" text-center href=""><b>Forgot password ?</b></a>
+        </mat-card>
+
+    </div>
+</div>

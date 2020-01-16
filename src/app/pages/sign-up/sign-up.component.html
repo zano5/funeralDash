@@ -1,0 +1,67 @@
+<div class="body">
+    <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+        <mat-card class="box">
+            <mat-card-header>
+                <mat-card-title>Sign up</mat-card-title>
+            </mat-card-header>
+
+            <form class="example-form" [formGroup]="SignForm" (ngSubmit)="Submit()">
+                <mat-card-content>
+                    <mat-form-field class="example-full-width">
+                        <input formControlName="fullname" matInput placeholder="Full Name">
+                    </mat-form-field>
+                    <div class="error" *ngIf="SignForm.get('fullname').hasError('required') && SignForm.get('fullname').touched">
+                        Please enter your Name
+                    </div>
+                    <div class="error" *ngIf="SignForm.get('fullname').hasError('minlength') && SignForm.get('fullname').touched">
+                        Minimum 3 characters
+                    </div>
+                    <div class="error" *ngIf="SignForm.get('fullname').hasError('maxlength') && SignForm.get('fullname').touched">
+                        Maximum 30 characters
+                    </div>
+                    <mat-form-field class="example-full-width">
+                        <input formControlName="email" matInput placeholder="Email">
+                    </mat-form-field>
+                    <div class="error" *ngIf="SignForm.get('email').hasError('required') && SignForm.get('email').touched">
+                        Please enter your email
+                    </div>
+                    <span class="error ion-padding" *ngIf="SignForm.get('email').hasError('pattern')">
+                      Email address format not valid
+                  </span>
+                    <mat-form-field class="example-full-width">
+                        <input type="tel" formControlName="mobilenumber" matInput placeholder="Mobile Number">
+                    </mat-form-field>
+                    <span class="error ion-padding" *ngIf="SignForm.get('mobilenumber').hasError('minlength') && SignForm.get('mobilenumber').touched">
+                      Mobile number must be 10 chars long
+                    </span>
+                    <span class="error ion-padding" *ngIf="SignForm.get('mobilenumber').hasError('required') && SignForm.get('mobilenumber').touched">
+                      Please enter your mobile number
+                    </span>
+                    <span class="error ion-padding" *ngIf="SignForm.get('mobilenumber').hasError('pattern') && SignForm.get('mobilenumber').touched">
+                      Mobile number must be digits
+                    </span>
+                    <mat-form-field class="example-full-width">
+                        <input type="password" formControlName="password" matInput placeholder="Password">
+                    </mat-form-field>
+                    <span class="error" *ngIf="SignForm.get('password').hasError('required') && SignForm.get('password').touched">
+                      Please enter your password
+                  </span>
+                    <span class="error" *ngIf="SignForm.get('password').hasError('minlength') && SignForm.get('password').touched">
+                      Minimum 6 characters
+                  </span>
+                    <span class="error" *ngIf="SignForm.get('password').hasError('maxlength') && SignForm.get('password').touched">
+                      Maximum 12 characters
+                  </span>
+                </mat-card-content>
+                <br><br>
+                <button type="submit" mat-stroked-button color="primary" [disabled]="!SignForm.valid" class="btn-block">Sign Up</button>
+            </form>
+            <br>
+            <a>If you already have account
+              <a class="text" routerLink="/SignIn"> <b>Sign In</b> </a>
+            </a>
+        </mat-card>
+
+    </div>
+</div>
