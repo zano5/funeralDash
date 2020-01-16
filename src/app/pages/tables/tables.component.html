@@ -11,20 +11,28 @@
             <table class=" table tablesorter" id="">
               <thead class=" text-primary">
                 <tr>
-                  <th>Name</th>
+                  <!-- <th>Name</th>
                   <th>Country</th>
                   <th>City</th>
-                  <th class=" text-center">Salary</th>
+                  <th class=" text-center">Salary</th> -->
+                  <th scope="col">Name</th>
+                  <th scope="col">Gender</th>
+                  <th scope="col">Age</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Remove</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Dakota Rice</td>
-                  <td>Niger</td>
-                  <td>Oud-Turnhout</td>
-                  <td class=" text-center">$36,738</td>
+                <tr *ngFor="let users of userList">
+          
+                  <td>{{users.displayName}}</td>
+                  <td>{{users.gender}}</td>
+                  <td>{{users.age}}</td>
+                  <td>{{users.email}}</td>
+                  <td> <button (click)="onDelete(users.key)"  class="fa fa-trash" style="font-size:30px;"></button></td>
+        
                 </tr>
-                <tr>
+                <!-- <tr>
                   <td>Minerva Hooper</td>
                   <td>CuraÃ§ao</td>
                   <td>Sinaai-Waas</td>
@@ -59,7 +67,7 @@
                   <td>Portugal</td>
                   <td>Gloucester</td>
                   <td class=" text-center">$98,615</td>
-                </tr>
+                </tr> -->
               </tbody>
             </table>
           </div>

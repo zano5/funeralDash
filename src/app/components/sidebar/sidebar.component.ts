@@ -35,7 +35,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: "/typography",
-    title: "Typography",
+    title: "User Information",
     icon: "icon-align-center",
     class: ""
   },

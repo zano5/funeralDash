@@ -1,4 +1,4 @@
-
+<!-- 
 <div class=" content">
   <div class=" row">
     <div class=" col-md-12">
@@ -163,4 +163,44 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
+
+<div class=" content">
+  <div class=" row">
+    <div class=" col-md-12">
+      <div class=" card">
+        <div class=" card-header">
+          <h4 class=" card-title">Simple Table</h4>
+        </div>
+        <div class=" card-body">
+          <div class=" table-responsive">
+            <table class=" table tablesorter" id="">
+              <thead class=" text-primary">
+                <tr>
+                  <th scope="col">FullName</th>
+                  <th scope="col">ID</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Remove</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let users of userList">
+          
+                  <td>{{users.displayName}}</td>
+                  <td>{{users.id}}</td>
+                  <td>{{users.email}}</td>
+                  <!-- <td> <button (click)="onDelete(users.key)"  class="fa fa-trash" style="font-size:30px;"></button></td> -->
+                  <td >
+                    <i style="font-size:medium;color: #E74C3C;" class="tim-icons icon-trash-simple" (click)="onDelete(users.key)"> Remove</i></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
