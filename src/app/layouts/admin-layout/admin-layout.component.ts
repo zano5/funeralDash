@@ -11,7 +11,6 @@ export class AdminLayoutComponent implements OnInit {
   constructor() {
     var body = document.getElementsByTagName('body')[0];
     body.classList.add('white-content');
-
   }
   changeSidebarColor(color){
     var sidebar = document.getElementsByClassName('sidebar')[0];

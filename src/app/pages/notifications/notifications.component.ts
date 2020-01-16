@@ -1,76 +1,50 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit,ViewChild } from "@angular/core";
 import { ToastrService } from 'ngx-toastr';
-
+import { AngularFirestore } from '@angular/fire/firestore'; 
+import { MatTableDataSource } from '@angular/material';
+import {MatPaginator} from '@angular/material/paginator';
+ 
+ 
 @Component({
   selector: "app-notifications",
   templateUrl: "notifications.component.html"
 })
-export class NotificationsComponent implements OnInit {
-  staticAlertClosed  = false;
-  staticAlertClosed1 = false;
-  staticAlertClosed2 = false;
-  staticAlertClosed3 = false;
-  staticAlertClosed4 = false;
-  staticAlertClosed5 = false;
-  staticAlertClosed6 = false;
-  staticAlertClosed7 = false;
 
-  constructor(private toastr: ToastrService) {}
-
-  showNotification(from, align){
-
-      const color = Math.floor((Math.random() * 5) + 1);
-
-      switch(color){
-        case 1:
-        this.toastr.info('<span class="tim-icons icon-bell-55" [data-notify]="icon"></span> Welcome to <b>Black Dashboard Angular</b> - a beautiful freebie for every web developer.', '', {
-           disableTimeOut: true,
-           closeButton: true,
-           enableHtml: true,
-           toastClass: "alert alert-info alert-with-icon",
-           positionClass: 'toast-' + from + '-' +  align
-         });
-        break;
-        case 2:
-        this.toastr.success('<span class="tim-icons icon-bell-55" [data-notify]="icon"></span> Welcome to <b>Black Dashboard Angular</b> - a beautiful freebie for every web developer.', '', {
-           disableTimeOut: true,
-           closeButton: true,
-           enableHtml: true,
-           toastClass: "alert alert-success alert-with-icon",
-           positionClass: 'toast-' + from + '-' +  align
-         });
-        break;
-        case 3:
-        this.toastr.warning('<span class="tim-icons icon-bell-55" [data-notify]="icon"></span> Welcome to <b>Black Dashboard Angular</b> - a beautiful freebie for every web developer.', '', {
-           disableTimeOut: true,
-           closeButton: true,
-           enableHtml: true,
-           toastClass: "alert alert-warning alert-with-icon",
-           positionClass: 'toast-' + from + '-' +  align
-         });
-        break;
-        case 4:
-        this.toastr.error('<span class="tim-icons icon-bell-55" [data-notify]="icon"></span> Welcome to <b>Black Dashboard Angular</b> - a beautiful freebie for every web developer.', '', {
-           disableTimeOut: true,
-           enableHtml: true,
-           closeButton: true,
-           toastClass: "alert alert-danger alert-with-icon",
-           positionClass: 'toast-' + from + '-' +  align
-         });
-         break;
-         case 5:
-         this.toastr.show('<span class="tim-icons icon-bell-55" [data-notify]="icon"></span> Welcome to <b>Black Dashboard Angular</b> - a beautiful freebie for every web developer.', '', {
-            disableTimeOut: true,
-            closeButton: true,
-            enableHtml: true,
-            toastClass: "alert alert-primary alert-with-icon",
-            positionClass: 'toast-' + from + '-' +  align
-          });
-        break;
-        default:
-        break;
-      }
+export class NotificationsComponent implements OnInit { 
+  
+  claimsData = [];
+  mockData = []; 
+  displayedColumns: string[] = ['ClaimentName', 'ID', 'Number', 'AltNumber','TimeStamp','image','itemId']; 
+  dataSource = new MatTableDataSource([]);
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  constructor(private toastr: ToastrService,private angularFirestore:AngularFirestore) {
+   
+    
+     
+  } 
+  
+  ngOnInit() {
+    this.dataSource.paginator = this.paginator;
+    this.RetrieveClaims();
+  }
+  RetrieveClaims(){ 
+    this.dataSource = new MatTableDataSource<any>();
+    this.angularFirestore.collection('claims doc').snapshotChanges()
+    .subscribe(snapshots => {
+      this.dataSource = new MatTableDataSource<any>();
+      snapshots.forEach(element => {     
+        this.dataSource.data.push({data:element.payload.doc.data(),id:element.payload.doc.id});  
+        this.dataSource._updateChangeSubscription(); 
+       }); 
+    }) 
   }
 
-  ngOnInit() {}
-}
+  Accept(){
+    console.log('Accept');
+  }
+  Reject(itemId){ 
+    this.angularFirestore.collection('claims doc').doc(itemId).delete();  
+    this.RetrieveClaims();
+  }
+  
+} 
