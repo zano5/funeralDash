@@ -21,7 +21,7 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { environment } from '../environments/environment'; 
+import { environment } from '../environments/environment';  
 
 @NgModule({
   imports: [
@@ -38,7 +38,7 @@ import { environment } from '../environments/environment';
     FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule,
+    AngularFireAuthModule, 
   ],
   declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, SignInComponent, SignUpComponent],
   providers: [],
