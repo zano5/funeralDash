@@ -1,7 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit,ViewChild } from "@angular/core";
 import { ExtractDataService } from 'src/app/services/extract-data.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: "app-tables",
@@ -9,42 +11,32 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class TablesComponent implements OnInit {
 
-  itemList = [];
-  mySubscription: any;
+  displayedColumns: string[] = ['BuyerFullName', 'BuyerID', 'BuyerMobileNumber', 'BuyerEmail','BuyerIncome','BuyerPolicy','itemId']; 
+  dataSource = new MatTableDataSource([]);
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
   constructor(private extractPur: ExtractDataService,private db: AngularFirestore, private router:Router) {
-
-    this.db.collection('Purchase').snapshotChanges()
-    .subscribe(snapshots => {
-      snapshots.forEach(element => {   
-      this.itemList.push({data:element.payload.doc.data(),id:element.payload.doc.id});
-       }); 
-       console.log(this.itemList)
-    })
-
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    };
-    
-    this.mySubscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        // Trick the Router into believing it's last link wasn't previously loaded
-        this.router.navigated = false;
-      }
-    });
-}
+    this.dataSource.paginator = this.paginator;
+    this.RetrievePurchases();
+  }
 
   ngOnInit() {}
 
-  Reject(id){
-    this.extractPur.delete(id);
-    alert("Item deleted");
-    this.itemList = [];
+  RetrievePurchases(){ 
+    this.dataSource = new MatTableDataSource<any>();
+    this.db.collection('Purchase').snapshotChanges()
+    .subscribe(snapshots => {
+      this.dataSource = new MatTableDataSource<any>();
+      snapshots.forEach(element => {     
+        this.dataSource.data.push({data:element.payload.doc.data(),id:element.payload.doc.id});  
+        this.dataSource._updateChangeSubscription(); 
+       }); 
+    }) 
   }
 
-  ngOnDestroy() {
-    if (this.mySubscription) {
-      this.mySubscription.unsubscribe();
-    }
+  Reject(itemId){ 
+    this.db.collection('Purchase').doc(itemId).delete();  
+    this.RetrievePurchases();
   }
   
 }
