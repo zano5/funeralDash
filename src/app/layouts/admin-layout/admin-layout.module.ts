@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
@@ -14,6 +14,7 @@ import { TypographyComponent } from "../../pages/typography/typography.component
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { SignoutComponent } from 'src/app/pages/signout/signout.component';
 import { AngularMaterialModule } from 'src/app/angular-material.module';
+import { PolicyComponent } from '../../pages/policy/policy.component'; 
 
 @NgModule({
   imports: [
@@ -30,7 +31,9 @@ import { AngularMaterialModule } from 'src/app/angular-material.module';
     TablesComponent,
     TypographyComponent,
     NotificationsComponent,
-    SignoutComponent
-  ]
+    SignoutComponent,
+    PolicyComponent
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AdminLayoutModule {}

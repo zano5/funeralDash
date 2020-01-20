@@ -26,6 +26,12 @@ export const ROUTES: RouteInfo[] = [
     icon: "icon-book-bookmark",
     class: ""
   },
+  {
+    path: "/policy",
+    title: "Policy",
+    icon: "icon-simple-add",
+    class: ""
+  },
 
   {
     path: "/user",

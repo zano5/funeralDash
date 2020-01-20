@@ -1,0 +1,52 @@
+<div class=" content">
+    <div class=" row">
+        <div class=" col-md-8">
+            <div class=" card">
+                <div class=" card-header">
+                    <h5 class=" title">Add New Policy</h5>
+                </div>
+                <div class=" card-body">
+                    <form>
+                        <div class=" row">
+                            <div class=" col-md-5 pr-md-1">
+                                <div class=" form-group">
+                                    <label> Policy Name </label>
+                                    <input [(ngModel)]="Name" ngModelOptions="standalone" class=" form-control" placeholder="Policy Name" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row">
+                            <div class=" col-md-2 pr-md-1">
+                                <div class=" form-group">
+                                    <label> Policy Price </label>
+                                    <input class=" form-control" placeholder="Policy Price" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row">
+                            <div class=" col-md-2 pr-md-1">
+                                <div class=" form-group">
+                                    <label> Number of beneficiaries </label>
+                                    <input class=" form-control" placeholder="Number of beneficiaries " type="text" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class=" row">
+                            <div class=" col-md-8">
+                                <div class=" form-group">
+                                    <label> About The Policy </label>
+                                    <textarea class=" form-control" cols="80" placeholder="Here can be your description" rows="4" value="Mike"> </textarea
+                  >
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class=" card-footer">
+          <button color="mat-blue" class=" btn btn-fill btn-success" type="submit">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
