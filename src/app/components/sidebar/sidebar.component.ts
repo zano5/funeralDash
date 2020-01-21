@@ -26,17 +26,23 @@ export const ROUTES: RouteInfo[] = [
     icon: "icon-book-bookmark",
     class: ""
   },
-
   {
-    path: "/user",
-    title: "User Profile",
-    icon: "icon-single-02",
+    path: "/policy",
+    title: "Policy",
+    icon: "icon-simple-add",
     class: ""
   },
+
+  // {
+  //   path: "/user",
+  //   title: "User Profile",
+  //   icon: "icon-single-02",
+  //   class: ""
+  // },
   {
     path: "/typography",
     title: "User Information",
-    icon: "icon-align-center",
+    icon: "icon-single-02",
     class: ""
   },
   {

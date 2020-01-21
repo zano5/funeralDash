@@ -1,40 +1,35 @@
-
 <div class=" content">
-  <div class=" row">
-    <div class=" col-md-12">
-      <div class=" card">
-        <div class=" card-header">
-          <h4 class=" card-title">Simple Table</h4>
+    <div class=" row">
+        <div class=" col-md-12">
+            <div class=" card">
+                <div class=" card-header">
+                    <h4 class=" card-title">Registered users</h4>
+                </div>
+                <div class=" card-body">
+                    <div class=" table-responsive">
+                        <table class=" table tablesorter" id="">
+                            <thead class=" text-primary">
+                                <tr>
+                                    <th scope="col">FullName</th>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col" class=" text-center">Update</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let users of userList">
+
+                                    <td>{{users.displayName}}</td>
+                                    <td>{{users.id}}</td>
+                                    <td>{{users.email}}</td>
+                                    <!-- <td> <button (click)="onDelete(users.key)"  class="fa fa-trash" style="font-size:30px;"></button></td> -->
+                                    <td class=" text-center"><i style="font-size:medium;color: #3498DB;" class="tim-icons icon-settings" (click)="editUser()"> </i>
+                                        <i style="padding-left: 20px;font-size:medium;color: #E74C3C;" class="tim-icons icon-trash-simple" (click)="onDelete(users.key)"> </i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class=" card-body">
-          <div class=" table-responsive">
-            <table class=" table tablesorter" id="">
-              <thead class=" text-primary">
-                <tr>
-                  <th scope="col">FullName</th>
-                  <th scope="col">ID</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Remove</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let users of userList">
-          
-                  <td>{{users.displayName}}</td>
-                  <td>{{users.id}}</td>
-                  <td>{{users.email}}</td>
-                  <!-- <td> <button (click)="onDelete(users.key)"  class="fa fa-trash" style="font-size:30px;"></button></td> -->
-                  <td >
-                    <i style="font-size:medium;color: #E74C3C;" class="tim-icons icon-trash-simple" (click)="onDelete(users.key)"> </i></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-
-
-
+ 
