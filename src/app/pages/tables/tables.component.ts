@@ -38,5 +38,9 @@ export class TablesComponent implements OnInit {
     this.db.collection('Purchase').doc(itemId).delete();  
     this.RetrievePurchases();
   }
+
+  method(){
+
+  }
   
 }

@@ -1,6 +1,7 @@
 class Users {
     key?: string;
     displayName: string;
-    id: number;
+    id: string;
     email: string;
+    plan: string;
 }

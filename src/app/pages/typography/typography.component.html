@@ -23,7 +23,7 @@
                                     <td>{{users.id}}</td>
                                     <td>{{users.email}}</td>
                                     <!-- <td> <button (click)="onDelete(users.key)"  class="fa fa-trash" style="font-size:30px;"></button></td> -->
-                                    <td class=" text-center"><i style="font-size:medium;color: #3498DB;" class="tim-icons icon-settings" (click)="editUser()"> </i>
+                                    <td class=" text-center"><i style="font-size:medium;color: #3498DB;" class="tim-icons icon-settings" (click)="editUser(users.key)"> </i>
                                         <i style="padding-left: 20px;font-size:medium;color: #E74C3C;" class="tim-icons icon-trash-simple" (click)="onDelete(users.key)"> </i></td>
                                 </tr>
                             </tbody>
