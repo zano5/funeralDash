@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { ExtractDataService } from 'src/app/services/extract-data.service';
 
 @Component({
   selector: "app-user",
@@ -17,7 +18,7 @@ export class UserComponent implements OnInit {
 }
 userRef;
 users = [];
-  constructor(private route:ActivatedRoute, private db: AngularFirestore) {
+  constructor(private route:ActivatedRoute, private db: AngularFirestore, private service:ExtractDataService, private nav: Router) {
   }
 
   ngOnInit() {
@@ -47,6 +48,11 @@ users = [];
       
     })
     
+  }
+  onUpdate(User){
+    this.service.update(User, User.key);
+    alert("Details updated");
+    this.nav.navigateByUrl('/typography');
   }
 
 }

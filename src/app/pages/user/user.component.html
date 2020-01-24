@@ -17,13 +17,13 @@
                             <div class=" col-md-3 px-md-1">
                                 <div class=" form-group">
                                     <label> Client name </label>
-                                    <input class=" form-control" [(ngModel)]="User.displayName" name="User.displayName" type="text" />
+                                    <input class=" form-control" style="border: 1px solid #1e88e5; " [(ngModel)]="User.displayName" name="User.displayName" type="text" />
                                 </div>
                             </div>
                             <div class=" col-md-4 pl-md-1">
                                 <div class=" form-group">
                                     <label> Client ID </label>
-                                    <input class=" form-control" [(ngModel)]="User.id" name="User.id" type="text" />
+                                    <input class=" form-control" style="border: 1px solid #1e88e5; " [(ngModel)]="User.id" name="User.id" type="text" />
                                 </div>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                             <div class=" col-md-6 pl-md-1">
                                 <div class=" form-group">
                                     <label> Email address </label>
-                                    <input class=" form-control" [(ngModel)]="User.email" name="User.email" type="email" />
+                                    <input class=" form-control" style="border: 1px solid #1e88e5; " [(ngModel)]="User.email" name="User.email" type="email" />
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@ Three(3) weeks behind on payment!!
           </form>
         </div>
         <div class=" card-footer">
-          <button class=" btn btn-fill btn-success" type="submit">Save</button>
+          <button class=" btn btn-fill btn-success" type="submit" (click)="onUpdate(User, User.key)">Save</button>
         </div>
       </div>
     </div>
