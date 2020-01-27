@@ -2,8 +2,9 @@ import { Component, OnInit,ViewChild } from "@angular/core";
 import { ExtractDataService } from 'src/app/services/extract-data.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialogConfig, MatDialog } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: "app-tables",
@@ -18,7 +19,7 @@ export class TablesComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor(private extractPur: ExtractDataService,private db: AngularFirestore, private router:Router) {
+  constructor(private extractPur: ExtractDataService,private db: AngularFirestore, private router:Router,private dialog:MatDialog) {
     this.dataSource.paginator = this.paginator;
     this.RetrievePurchases();
   }
@@ -50,26 +51,20 @@ export class TablesComponent implements OnInit {
     console.log(this.dataSource1);
   }
   Accept(purchase){
-    this.db.collection('users').doc(purchase.data.BuyerUserID).set({
-      displayName: purchase.data.BuyerFullName,
-      email: purchase.data.BuyerEmail,
-      id: purchase.data.BuyerID,
-      userid: purchase.data.BuyerUserID,
-      plan:purchase.data.BuyerPolicy
-     }).catch(error=>{
-       alert(error.message)
-     })
-    this.db.collection('Approved Purchases').add(purchase);
-    this.db.collection('Purchase').doc(purchase.id).delete(); 
+    this.openDialog(purchase);
   }
 
   Reject(itemId){ 
     this.db.collection('Purchase').doc(itemId).delete();  
     this.RetrievePurchases();
   }
-
-  method(){
-
-  }
+  openDialog(e) {  
+    const dialogConfig = new MatDialogConfig(); 
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    
+    dialogConfig.data = e;
+    this.dialog.open(ConfirmDialogComponent, dialogConfig);
+}
   
 }
