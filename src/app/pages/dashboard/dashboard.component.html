@@ -50,109 +50,39 @@
         </div>
     </div>
     <div class=" row">
-        <div class=" col-lg-6 col-md-12">
+        <div class="col-md-12">
             <div class=" card card-tasks">
                 <div class=" card-header">
-                    <h4 class=" card-title">Purchases</h4>
+                    <h4 class=" card-title">Registered users</h4>
                     <div ngbDropdown>
                         <button class=" btn btn-link btn-icon" data-toggle="dropdown" ngbDropdownToggle type="button">
               <i class=" tim-icons icon-settings-gear-63"> </i>
             </button>
                         <div aria-labelledby="dropdownMenuLink" class=" dropdown-menu-right" ngbDropdownMenu>
-                            <a routerLink="/tables" ngbDropdownItem> View In Location </a>
+                            <a routerLink="/typography" ngbDropdownItem> View In Location </a>
                         </div>
                     </div>
                 </div>
-                <table style="width: 100%;" mat-table [dataSource]="dataSource1">
+                <table class=" table tablesorter" id="">
+                    <thead class=" text-primary">
+                        <tr>
+                            <th scope="col">FullName</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Email</th>
+                            <th scope="col" class=" text-center">Update</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let users of userList">
 
-                    <!-- Position Column -->
-                    <ng-container matColumnDef="BuyerFullName">
-                        <th mat-header-cell *matHeaderCellDef>Buyer Name</th>
-                        <td mat-cell *matCellDef="let element"> {{element.data.BuyerFullName}} </td>
-                    </ng-container>
-
-                    <!-- Name Column -->
-                    <ng-container matColumnDef="BuyerID">
-                        <th mat-header-cell *matHeaderCellDef>Buyer ID</th>
-                        <td mat-cell *matCellDef="let element"> {{element.data.BuyerID}} </td>
-                    </ng-container>
-
-                    <!-- Weight Column -->
-                    <ng-container matColumnDef="BuyerMobileNumber">
-                        <th mat-header-cell *matHeaderCellDef>Mobile Number</th>
-                        <td mat-cell *matCellDef="let element"> {{element.data.BuyerMobileNumber}} </td>
-                    </ng-container>
-
-                    <!-- Symbol Column -->
-                    <ng-container matColumnDef="BuyerEmail">
-                        <th mat-header-cell *matHeaderCellDef>Email</th>
-                        <td mat-cell *matCellDef="let element"> {{element.data.BuyerEmail}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="BuyerIncome">
-                        <th mat-header-cell *matHeaderCellDef>Salary</th>
-                        <td mat-cell *matCellDef="let element">R {{element.data.BuyerIncome}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="BuyerPolicy">
-                        <th mat-header-cell *matHeaderCellDef>Policy</th>
-                        <td mat-cell *matCellDef="let element">{{element.data.BuyerPolicy}}</td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+                            <td>{{users.displayName}}</td>
+                            <td>{{users.id}}</td>
+                            <td>{{users.email}}</td>
+                            <td class=" text-center"><i style="font-size:medium;color: #3498DB;" class="tim-icons icon-settings" (click)="editUser(users.key)"> </i>
+                                <i style="padding-left: 20px;font-size:medium;color: #E74C3C;" class="tim-icons icon-trash-simple" (click)="onDelete(users.key)"> </i></td>
+                        </tr>
+                    </tbody>
                 </table>
-            </div>
-        </div>
-        <div class=" col-lg-6 col-md-12">
-            <div class=" card">
-                <div class=" card-header">
-                    <h4 class=" card-title">Claims Table</h4>
-                </div>
-                <div class=" card-body">
-                    <div class=" table-responsive">
-                        <table style="width: 100%;" mat-table [dataSource]="dataSource">
-
-                            <!-- Position Column -->
-                            <ng-container matColumnDef="ClaimentName">
-                                <th mat-header-cell *matHeaderCellDef class=" text-center"> Full Name </th>
-                                <td mat-cell *matCellDef="let element" class=" text-center"> {{element.data.ClaimentName}} </td>
-                            </ng-container>
-
-                            <!-- Name Column -->
-                            <ng-container matColumnDef="ID">
-                                <th mat-header-cell *matHeaderCellDef class=" text-center"> ID Number</th>
-                                <td mat-cell *matCellDef="let element" class=" text-center"> {{element.data.ID}} </td>
-                            </ng-container>
-
-                            <!-- Weight Column -->
-                            <ng-container matColumnDef="Number">
-                                <th mat-header-cell *matHeaderCellDef class=" text-center"> Mobile Number </th>
-                                <td mat-cell *matCellDef="let element" class=" text-center"> {{element.data.Number}} </td>
-                            </ng-container>
-
-                            <!-- Symbol Column -->
-                            <ng-container matColumnDef="AltNumber">
-                                <th mat-header-cell *matHeaderCellDef class=" text-center"> Alternative Number </th>
-                                <td mat-cell *matCellDef="let element" class=" text-center"> {{element.data.AltNumber}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="TimeStamp">
-                                <th mat-header-cell *matHeaderCellDef class=" text-center"> Date </th>
-                                <td mat-cell *matCellDef="let element" class=" text-center"> {{element.data.TimeStamp.toDate() | date:'dd-MM-yyy'}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="image">
-                                <th mat-header-cell *matHeaderCellDef class=" text-center"> Death Certificate </th>
-                                <td mat-cell *matCellDef="let element" class=" text-center"> <a style="text-decoration: underline;" href="{{element.data.image}}">Document</a> </td>
-                            </ng-container>
-
-                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                        </table>
-                        <mat-paginator [pageSizeOptions]="[7, 14, 21]" showFirstLastButtons></mat-paginator>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

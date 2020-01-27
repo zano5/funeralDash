@@ -39,12 +39,12 @@ export const ROUTES: RouteInfo[] = [
   //   icon: "icon-single-02",
   //   class: ""
   // },
-  {
-    path: "/typography",
-    title: "User Information",
-    icon: "icon-single-02",
-    class: ""
-  },
+  // {
+  //   path: "/typography",
+  //   title: "User Information",
+  //   icon: "icon-single-02",
+  //   class: ""
+  // },
   {
     path:"/signout",
     title:"Sign Out",

@@ -4,6 +4,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { ExtractDataService } from 'src/app/services/extract-data.service';
 import { MatTableDataSource } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
+import { AdminService } from 'src/app/admin.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-dashboard",
@@ -22,55 +24,28 @@ export class DashboardComponent implements OnInit {
   policyData;
   standard: number = 0;
   premium: number = 0;
+  userList;
   
-  displayedColumns: string[] = ['ClaimentName', 'ID', 'Number', 'AltNumber','TimeStamp','image'];
-  displayedColumns1: string[] = ['BuyerFullName', 'BuyerID', 'BuyerMobileNumber', 'BuyerEmail','BuyerIncome','BuyerPolicy']; 
-  dataSource = new MatTableDataSource([]);
-  dataSource1 = new MatTableDataSource([]);
-
-  
-  constructor(private firestore: AngularFirestore, private service: ExtractDataService) {
-    this.RetrievePurchases();
-    this.RetrieveClaims();
+  constructor(private adminServ: AdminService, private firestore: AngularFirestore, private service: ExtractDataService, private router: Router) {
+    this.firestore.collection('users').snapshotChanges().subscribe(data => {
+      this.userList = data.map(e => {
+        return{
+          key: e.payload.doc.id,
+          ...e.payload.doc.data()
+        } as Users
+      });
+      console.log(this.userList)
+      
+    })
   }
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   
-  RetrieveClaims(){ 
-    this.dataSource = new MatTableDataSource<any>();
-    this.firestore.collection('claims doc').snapshotChanges()
-    .subscribe(snapshots => {
-      this.dataSource = new MatTableDataSource<any>();
-      snapshots.forEach(element => {     
-        this.dataSource.data.push({data:element.payload.doc.data(),id:element.payload.doc.id});  
-        this.dataSource._updateChangeSubscription();  
-    this.dataSource.paginator = this.paginator;
-       }); 
-    }) 
+
+  onDelete(key){
+    this.adminServ.deleteUser(key);
   }
-
-  RetrievePurchases(){ 
-    this.dataSource = new MatTableDataSource<any>();
-    this.dataSource1 = new MatTableDataSource<any>();
-
-    this.firestore.collection('Purchase').snapshotChanges()
-    .subscribe(snapshots => {
-      this.dataSource = new MatTableDataSource<any>();
-      snapshots.forEach(element => {     
-        this.dataSource.data.push({data:element.payload.doc.data(),id:element.payload.doc.id});  
-        this.dataSource._updateChangeSubscription(); 
-       }); 
-    }) 
-
-    this.firestore.collection('Approved Purchases').snapshotChanges()
-    .subscribe(snapshots => {
-      this.dataSource1 = new MatTableDataSource<any>();
-      snapshots.forEach(element => {     
-        console.log(element.payload.doc.data());
-        this.dataSource1.data.push(element.payload.doc.data());  
-        this.dataSource1._updateChangeSubscription(); 
-       }); 
-    }) 
-    console.log(this.dataSource1);
+  editUser(key){
+    this.router.navigate(['/user'], {queryParams:{key: key, }})
   }
 
   ngOnInit() {
@@ -334,20 +309,6 @@ export class DashboardComponent implements OnInit {
       },
       responsive: true,
       scales: {
-        yAxes: [{
-
-          gridLines: {
-            drawBorder: false,
-            color: 'rgba(29,140,248,0.1)',
-            zeroLineColor: "transparent",
-          },
-          ticks: {
-            suggestedMin: 60,
-            suggestedMax: 120,
-            padding: 20,
-            fontColor: "#9e9e9e"
-          }
-        }],
 
         xAxes: [{
 
@@ -448,44 +409,6 @@ export class DashboardComponent implements OnInit {
       [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130]
     ];
     this.data = this.datasets[0];
-
-
-
-    // this.canvas = document.getElementById("chartBig1");
-    // this.ctx = this.canvas.getContext("2d");
-
-    // var gradientStroke = this.ctx.createLinearGradient(0, 230, 0, 50);
-
-    // gradientStroke.addColorStop(1, 'rgba(233,32,16,0.2)');
-    // gradientStroke.addColorStop(0.4, 'rgba(233,32,16,0.0)');
-    // gradientStroke.addColorStop(0, 'rgba(233,32,16,0)'); //red colors
-
-    // var config = {
-    //   type: 'line',
-    //   data: {
-    //     labels: chart_labels,
-    //     datasets: [{
-    //       label: "My First dataset",
-    //       fill: true,
-    //       backgroundColor: gradientStroke,
-    //       borderColor: '#ec250d',
-    //       borderWidth: 2,
-    //       borderDash: [],
-    //       borderDashOffset: 0.0,
-    //       pointBackgroundColor: '#ec250d',
-    //       pointBorderColor: 'rgba(255,255,255,0)',
-    //       pointHoverBackgroundColor: '#ec250d',
-    //       pointBorderWidth: 20,
-    //       pointHoverRadius: 4,
-    //       pointHoverBorderWidth: 15,
-    //       pointRadius: 4,
-    //       data: this.data,
-    //     }]
-    //   },
-    //   options: gradientChartOptionsConfigurationWithTooltipRed
-    // };
-    // this.myChartData = new Chart(this.ctx, config);
-
 
     this.canvas = document.getElementById("CountryChart");
     this.ctx  = this.canvas.getContext("2d");
