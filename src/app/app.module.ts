@@ -22,6 +22,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { ConfirmDialogComponent } from './pages/confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -41,9 +42,12 @@ import { environment } from '../environments/environment';
     AngularFirestoreModule,
     AngularFireAuthModule, 
   ],
-  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, SignInComponent, SignUpComponent],
+  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, SignInComponent, SignUpComponent, ConfirmDialogComponent],
   providers: [],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  entryComponents: [
+    ConfirmDialogComponent
+  ]
 })
 export class AppModule {}

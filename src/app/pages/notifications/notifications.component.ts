@@ -1,8 +1,9 @@
 import { Component, OnInit,ViewChild } from "@angular/core";
 import { ToastrService } from 'ngx-toastr';
 import { AngularFirestore } from '@angular/fire/firestore'; 
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialogConfig, MatDialog } from '@angular/material';
 import {MatPaginator} from '@angular/material/paginator';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
  
  
 @Component({
@@ -16,7 +17,7 @@ export class NotificationsComponent implements OnInit {
   mockData = []; 
   displayedColumns: string[] = ['ClaimentName', 'ID', 'Number', 'AltNumber','TimeStamp','image','itemId']; 
   dataSource = new MatTableDataSource([]); 
-  constructor(private toastr: ToastrService, private angularFirestore: AngularFirestore) { } 
+  constructor(private toastr: ToastrService, private angularFirestore: AngularFirestore,private dialog:MatDialog) { } 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit() {
     this.RetrieveClaims();
@@ -41,5 +42,21 @@ export class NotificationsComponent implements OnInit {
     this.angularFirestore.collection('claims doc').doc(itemId).delete();  
     this.RetrieveClaims();
   }
+  openDialog(e) { 
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    
+  //   dialogConfig.data = {
+  //   position:e.position,
+  //   gender:e.gender,
+  //   race:e.race,
+  //   occupation:e.occupation,
+  //   age:e.age,
+  //   key:e.key
+  // };
+    this.dialog.open(ConfirmDialogComponent, dialogConfig);
+}
   
 } 

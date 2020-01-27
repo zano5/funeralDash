@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import {MatDialogModule} from '@angular/material/dialog';
 import {
    MatButtonModule,
    MatToolbarModule,
@@ -40,7 +40,8 @@ import {
       MatChipsModule,
       MatTooltipModule,
       MatTableModule,
-      MatPaginatorModule
+      MatPaginatorModule,
+      MatDialogModule
    ],
    exports: [
       MatButtonModule,
@@ -58,7 +59,8 @@ import {
       MatChipsModule,
       MatTooltipModule,
       MatTableModule,
-      MatPaginatorModule
+      MatPaginatorModule,
+      MatDialogModule
    ],
    providers: [
       MatDatepickerModule,
