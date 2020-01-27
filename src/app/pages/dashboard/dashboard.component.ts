@@ -1,5 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import Chart from 'chart.js';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { ExtractDataService } from 'src/app/services/extract-data.service';
+import { MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: "app-dashboard",
@@ -15,9 +19,62 @@ export class DashboardComponent implements OnInit {
   public clicked1: boolean = false;
   public clicked2: boolean = false;
 
-  constructor() {}
+  policyData;
+  standard: number = 0;
+  premium: number = 0;
+  
+  displayedColumns: string[] = ['ClaimentName', 'ID', 'Number', 'AltNumber','TimeStamp','image'];
+  displayedColumns1: string[] = ['BuyerFullName', 'BuyerID', 'BuyerMobileNumber', 'BuyerEmail','BuyerIncome','BuyerPolicy']; 
+  dataSource = new MatTableDataSource([]);
+  dataSource1 = new MatTableDataSource([]);
+
+  
+  constructor(private firestore: AngularFirestore, private service: ExtractDataService) {
+    this.RetrievePurchases();
+    this.RetrieveClaims();
+  }
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  
+  RetrieveClaims(){ 
+    this.dataSource = new MatTableDataSource<any>();
+    this.firestore.collection('claims doc').snapshotChanges()
+    .subscribe(snapshots => {
+      this.dataSource = new MatTableDataSource<any>();
+      snapshots.forEach(element => {     
+        this.dataSource.data.push({data:element.payload.doc.data(),id:element.payload.doc.id});  
+        this.dataSource._updateChangeSubscription();  
+    this.dataSource.paginator = this.paginator;
+       }); 
+    }) 
+  }
+
+  RetrievePurchases(){ 
+    this.dataSource = new MatTableDataSource<any>();
+    this.dataSource1 = new MatTableDataSource<any>();
+
+    this.firestore.collection('Purchase').snapshotChanges()
+    .subscribe(snapshots => {
+      this.dataSource = new MatTableDataSource<any>();
+      snapshots.forEach(element => {     
+        this.dataSource.data.push({data:element.payload.doc.data(),id:element.payload.doc.id});  
+        this.dataSource._updateChangeSubscription(); 
+       }); 
+    }) 
+
+    this.firestore.collection('Approved Purchases').snapshotChanges()
+    .subscribe(snapshots => {
+      this.dataSource1 = new MatTableDataSource<any>();
+      snapshots.forEach(element => {     
+        console.log(element.payload.doc.data());
+        this.dataSource1.data.push(element.payload.doc.data());  
+        this.dataSource1._updateChangeSubscription(); 
+       }); 
+    }) 
+    console.log(this.dataSource1);
+  }
 
   ngOnInit() {
+    
     var gradientChartOptionsConfigurationWithTooltipBlue: any = {
       maintainAspectRatio: false,
       legend: {
@@ -261,9 +318,9 @@ export class DashboardComponent implements OnInit {
 
     var gradientBarChartConfiguration: any = {
       maintainAspectRatio: false,
-      legend: {
-        display: false
-      },
+      // legend: {
+      //   display: false
+      // },
 
       tooltips: {
         backgroundColor: '#f5f5f5',
@@ -394,40 +451,40 @@ export class DashboardComponent implements OnInit {
 
 
 
-    this.canvas = document.getElementById("chartBig1");
-    this.ctx = this.canvas.getContext("2d");
+    // this.canvas = document.getElementById("chartBig1");
+    // this.ctx = this.canvas.getContext("2d");
 
-    var gradientStroke = this.ctx.createLinearGradient(0, 230, 0, 50);
+    // var gradientStroke = this.ctx.createLinearGradient(0, 230, 0, 50);
 
-    gradientStroke.addColorStop(1, 'rgba(233,32,16,0.2)');
-    gradientStroke.addColorStop(0.4, 'rgba(233,32,16,0.0)');
-    gradientStroke.addColorStop(0, 'rgba(233,32,16,0)'); //red colors
+    // gradientStroke.addColorStop(1, 'rgba(233,32,16,0.2)');
+    // gradientStroke.addColorStop(0.4, 'rgba(233,32,16,0.0)');
+    // gradientStroke.addColorStop(0, 'rgba(233,32,16,0)'); //red colors
 
-    var config = {
-      type: 'line',
-      data: {
-        labels: chart_labels,
-        datasets: [{
-          label: "My First dataset",
-          fill: true,
-          backgroundColor: gradientStroke,
-          borderColor: '#ec250d',
-          borderWidth: 2,
-          borderDash: [],
-          borderDashOffset: 0.0,
-          pointBackgroundColor: '#ec250d',
-          pointBorderColor: 'rgba(255,255,255,0)',
-          pointHoverBackgroundColor: '#ec250d',
-          pointBorderWidth: 20,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 15,
-          pointRadius: 4,
-          data: this.data,
-        }]
-      },
-      options: gradientChartOptionsConfigurationWithTooltipRed
-    };
-    this.myChartData = new Chart(this.ctx, config);
+    // var config = {
+    //   type: 'line',
+    //   data: {
+    //     labels: chart_labels,
+    //     datasets: [{
+    //       label: "My First dataset",
+    //       fill: true,
+    //       backgroundColor: gradientStroke,
+    //       borderColor: '#ec250d',
+    //       borderWidth: 2,
+    //       borderDash: [],
+    //       borderDashOffset: 0.0,
+    //       pointBackgroundColor: '#ec250d',
+    //       pointBorderColor: 'rgba(255,255,255,0)',
+    //       pointHoverBackgroundColor: '#ec250d',
+    //       pointBorderWidth: 20,
+    //       pointHoverRadius: 4,
+    //       pointHoverBorderWidth: 15,
+    //       pointRadius: 4,
+    //       data: this.data,
+    //     }]
+    //   },
+    //   options: gradientChartOptionsConfigurationWithTooltipRed
+    // };
+    // this.myChartData = new Chart(this.ctx, config);
 
 
     this.canvas = document.getElementById("CountryChart");
@@ -439,28 +496,44 @@ export class DashboardComponent implements OnInit {
     gradientStroke.addColorStop(0, 'rgba(29,140,248,0)'); //blue colors
 
 
-    var myChart = new Chart(this.ctx, {
-      type: 'bar',
-      responsive: true,
-      legend: {
-        display: false
-      },
-      data: {
-        labels: ['USA', 'GER', 'AUS', 'UK', 'RO', 'BR'],
-        datasets: [{
-          label: "Countries",
-          fill: true,
-          backgroundColor: gradientStroke,
-          hoverBackgroundColor: gradientStroke,
-          borderColor: '#1f8ef1',
-          borderWidth: 2,
-          borderDash: [],
-          borderDashOffset: 0.0,
-          data: [53, 20, 10, 80, 100, 45],
-        }]
-      },
-      options: gradientBarChartConfiguration
-    });
+    this.firestore.collection('Approved Purchases').valueChanges().subscribe((data: any) => { 
+
+      for (let x = 0; x < data.length; x++) {
+        let policyData = data[x].data.BuyerPolicy;
+
+        if(policyData == 'Standard Plan'){
+          this.standard = this.standard + 1;
+        }
+        else{
+          this.premium = this.premium + 1;
+        }
+            var myChart = new Chart(this.ctx, {
+            type: 'pie',
+            responsive: true,
+            legend: {
+              display: false
+            },
+            data: {
+              labels: ['Standard', 'Premium'],
+              datasets: [{
+                label: "Policy",
+                fill: true,
+                backgroundColor: ['rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',],
+                hoverBackgroundColor: ['rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',],
+                borderColor: '#1f8ef1',
+                borderWidth: 2,
+                borderDash: [],
+                borderDashOffset: 0.0,
+                data: [this.standard, this.premium],
+              }]
+            },
+            options: gradientBarChartConfiguration
+          });
+
+    }
+  })
 
   }
   public updateOptions() {
