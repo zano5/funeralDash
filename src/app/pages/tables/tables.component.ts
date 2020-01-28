@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MatTableDataSource, MatDialogConfig, MatDialog } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { Delete1Component } from '../delete1/delete1.component';
 
 @Component({
   selector: "app-tables",
@@ -65,6 +66,22 @@ export class TablesComponent implements OnInit {
     
     dialogConfig.data = e;
     this.dialog.open(ConfirmDialogComponent, dialogConfig);
+}
+Accept2(purchase){
+  this.openDialog2(purchase);
+}
+
+Reject2(itemId){ 
+  this.db.collection('Purchase').doc(itemId).delete();  
+  this.RetrievePurchases();
+}
+openDialog2(e) {  
+  const dialogConfig = new MatDialogConfig(); 
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  
+  dialogConfig.data = e;
+  this.dialog.open(Delete1Component, dialogConfig);
 }
   
 }

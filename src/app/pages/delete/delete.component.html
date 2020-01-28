@@ -1,0 +1,14 @@
+<h1 mat-dialog-title style="text-align:center">Confirm</h1>
+<div mat-dialog-content>
+    <h4>Are you sure you want to delete the following claims ?</h4>
+    <h4><b>Name :</b> {{ClaimentName}}</h4>
+    <h4><b>ID : </b>{{ID}}</h4>
+    <h4><b>Number : </b>{{Number}}</h4>
+    <h4><b>AltNumber : </b>{{AltNumber}}</h4>
+
+</div>
+<div mat-dialog-actions>
+    <button mat-button style="width: 45%;" mat-raised-button color="warn" (click)="close1()">Cancel</button>
+    <button mat-button style="width: 45%;" mat-raised-button color="primary" (click)="Confirm1()">Delete</button>
+</div>
+
