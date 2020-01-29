@@ -15,12 +15,12 @@ export class NotificationsComponent implements OnInit {
   
   claimsData = [];
   mockData = []; 
-  displayedColumns: string[] = ['ClaimentName', 'ID', 'Number', 'AltNumber','TimeStamp','image','itemId']; 
+  displayedColumns: string[] = ['ClaimNumber','ClaimentName', 'ID', 'Number', 'AltNumber','TimeStamp','image','itemId']; 
   dataSource = new MatTableDataSource([]); 
   constructor(private toastr: ToastrService, private angularFirestore: AngularFirestore,private dialog:MatDialog) { } 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit() {
-    this.RetrieveClaims();
+    this.RetrieveClaims(); 
   }
   RetrieveClaims(){ 
     this.dataSource = new MatTableDataSource<any>();
