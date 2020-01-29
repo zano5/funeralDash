@@ -370,7 +370,7 @@ export class DashboardComponent implements OnInit {
 
     gradientStroke.addColorStop(1, 'rgba(66,134,121,0.15)');
     gradientStroke.addColorStop(0.4, 'rgba(66,134,121,0.0)'); //green colors
-    gradientStroke.addColorStop(0, 'rgba(66,134,121,0)'); //green colors
+    gradientStroke.addColorStop(0, 'rgba(66,134,121,0)'); //green colors 
 
     var data = {
       labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV'],
