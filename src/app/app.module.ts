@@ -26,7 +26,9 @@ import { ConfirmDialogComponent } from './pages/confirm-dialog/confirm-dialog.co
 import { Confirm2Component } from './pages/confirm2/confirm2.component';
 import { DeleteComponent } from './pages/delete/delete.component';
 import { Delete1Component } from './pages/delete1/delete1.component';
-import * as Chart from 'chart.js';
+import { ViewPurchaseComponent } from './pages/view-purchase/view-purchase.component';
+import { ViewClaimComponent } from './pages/view-claim/view-claim.component'; 
+
 
 
 @NgModule({
@@ -46,7 +48,7 @@ import * as Chart from 'chart.js';
     AngularFirestoreModule,
     AngularFireAuthModule, 
   ],
-  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, SignInComponent, SignUpComponent, ConfirmDialogComponent, Confirm2Component, DeleteComponent, Delete1Component],
+  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, SignInComponent, SignUpComponent, ConfirmDialogComponent, Confirm2Component, DeleteComponent, Delete1Component, ViewPurchaseComponent, ViewClaimComponent],
   providers: [],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -54,7 +56,9 @@ import * as Chart from 'chart.js';
     ConfirmDialogComponent,
     Confirm2Component,
     DeleteComponent,
-    Delete1Component
+    Delete1Component,
+    ViewPurchaseComponent,
+    ViewClaimComponent
   ]
 })
 export class AppModule {}

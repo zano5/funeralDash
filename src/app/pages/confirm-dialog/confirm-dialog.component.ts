@@ -15,12 +15,13 @@ export class ConfirmDialogComponent implements OnInit {
   Number;
   Salary;
   UID;
-
+  documentID;
+  Members = [];
   data = [];
   constructor(private db: AngularFirestore,private dialogRef:MatDialogRef<ConfirmDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data) { 
       this.data = data;
-      console.log(this.data);
+      this.Members = data.data.BuyerMembers; 
       this.Name = data.data.BuyerFullName;
       this.Email = data.data.BuyerEmail;
       this.ID = data.data.BuyerID;
@@ -28,6 +29,8 @@ export class ConfirmDialogComponent implements OnInit {
       this.Number = data.data.BuyerMobileNumber;
       this.Salary = data.data.BuyerIncome;
       this.UID = data.id; 
+      this.documentID = data.data.BuyerUserID;
+
     }
 
   ngOnInit() {
@@ -37,12 +40,13 @@ export class ConfirmDialogComponent implements OnInit {
     
   }
   Confirm(){
-      this.db.collection('users').doc(this.UID).set({
+      this.db.collection('users').doc(this.documentID).set({
       displayName: this.Name,
       email: this.Email,
       id: this.ID,
       userid: this.UID,
-      plan:this.Plan
+      plan:this.Plan,
+      members:this.Members.length
      }).catch(error=>{
        alert(error.message)
      })

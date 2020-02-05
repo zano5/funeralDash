@@ -33,16 +33,8 @@ export class Confirm2Component implements OnInit {
     this.dialogRef.close();
     
   }
-  Confirm(){
-      this.db.collection('users').doc(this.UID).set({
-      displayName: this.Name,
-      id: this.ID,
-      userid: this.UID,
-     
-     }).catch(error=>{
-       alert(error.message)
-     })
-    this.db.collection('claims doc').add(this.data);
+  Confirm(){ 
+    this.db.collection('Approved Claims').add(this.data);
     this.db.collection('claims doc').doc(this.UID).delete(); 
     this.dialogRef.close();
   }
