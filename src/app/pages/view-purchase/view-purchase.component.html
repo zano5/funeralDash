@@ -1,0 +1,17 @@
+<h1 mat-dialog-title style="text-align:center">Information</h1>
+<div mat-dialog-content>
+    <h4>Below is more information about the choosen purchase :</h4>
+    <h4><b>Name :</b> {{Name}}</h4>
+    <h4><b>Email : </b>{{Email}}</h4>
+    <h4><b>ID : </b>{{ID}}</h4>
+    <h4><b>Policy : </b>{{Plan}}</h4>
+    <h4><b>Number : </b>{{Number}}</h4>
+    <h4><b>Salary :</b>R {{Salary}}</h4>
+    <h4><b>Members:</b></h4>
+    <h4 *ngFor="let member of Members;let i = index">Name :{{member.memberName}} <br> ID :{{member.memberID}}</h4>
+    <h4><b>Address</b></h4>
+    <h4>{{Address.addressline1}} <br>{{Address.addressline2}} <br> {{Address.addresscity}} <br> {{Address.addressstate}} <br> {{Address.addresszipcode}}</h4>
+</div>
+<div mat-dialog-actions>
+    <button mat-button style="width: 100%;" mat-raised-button color="primary" (click)="confirm()">OK</button>
+</div>

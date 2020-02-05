@@ -6,6 +6,7 @@ import { MatTableDataSource, MatDialogConfig, MatDialog } from '@angular/materia
 import {MatPaginator} from '@angular/material/paginator';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { DeleteComponent } from '../delete/delete.component';
+import { ViewClaimComponent } from '../view-claim/view-claim.component';
  
  
 @Component({
@@ -18,7 +19,9 @@ export class NotificationsComponent implements OnInit {
   claimsData = [];
   mockData = []; 
   displayedColumns: string[] = ['ClaimNumber','ClaimentName', 'ID', 'Number', 'AltNumber','TimeStamp','image','itemId']; 
+  displayedColumns1: string[] = ['ClaimNumber','ClaimentName', 'ID', 'Number', 'AltNumber','TimeStamp','image',]; 
   dataSource = new MatTableDataSource([]); 
+  dataSource1 = new MatTableDataSource([]);
   constructor(private toastr: ToastrService, private angularFirestore: AngularFirestore,private dialog:MatDialog,private db: AngularFirestore) {
     
    } 
@@ -27,14 +30,27 @@ export class NotificationsComponent implements OnInit {
     this.RetrieveClaims(); 
   }
   RetrieveClaims(){ 
+
     this.dataSource = new MatTableDataSource<any>();
+    this.dataSource1 = new MatTableDataSource<any>()
+
     this.angularFirestore.collection('claims doc').snapshotChanges()
     .subscribe(snapshots => {
       this.dataSource = new MatTableDataSource<any>();
       snapshots.forEach(element => {     
-        this.dataSource.data.push({data:element.payload.doc.data(),id:element.payload.doc.id});  
+        this.dataSource.data.push({data:element.payload.doc.data(),id:element.payload.doc.id});   
         this.dataSource._updateChangeSubscription();  
     this.dataSource.paginator = this.paginator;
+       }); 
+    }) 
+
+    this.angularFirestore.collection('Approved Claims').snapshotChanges()
+    .subscribe(snapshots => {
+      this.dataSource1 = new MatTableDataSource<any>();
+      snapshots.forEach(element => {     
+        this.dataSource1.data.push({data:element.payload.doc.data(),id:element.payload.doc.id});   
+        this.dataSource1._updateChangeSubscription();  
+        this.dataSource1.paginator = this.paginator;
        }); 
     }) 
   }
@@ -44,8 +60,8 @@ export class NotificationsComponent implements OnInit {
     this.openDialog(claimsdoc);
   }
   Reject(itemId){ 
-    this.angularFirestore.collection('claims doc').doc(itemId).delete();  
-    this.RetrieveClaims();
+    // this.angularFirestore.collection('claims doc').doc(itemId).delete();  
+    // this.RetrieveClaims();
   }
   openDialog(e) { 
     const dialogConfig = new MatDialogConfig(); 
@@ -54,7 +70,7 @@ export class NotificationsComponent implements OnInit {
       
       dialogConfig.data = e;
       this.dialog.open(Confirm2Component, dialogConfig);
-}1
+}
 
 Accept1(purchase){
   this.openDialog1(purchase);
@@ -71,6 +87,16 @@ openDialog1(e) {
   
   dialogConfig.data = e;
   this.dialog.open(DeleteComponent, dialogConfig);
-}
+} 
+openDialog2(e) {  
+  const dialogConfig = new MatDialogConfig(); 
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
   
+  dialogConfig.data = e;
+  this.dialog.open(ViewClaimComponent, dialogConfig);
+} 
+rows(row){
+    this.openDialog2(row);
+}
 } 

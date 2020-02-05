@@ -1,0 +1,12 @@
+<h1 mat-dialog-title style="text-align:center">Information</h1>
+<div mat-dialog-content>
+    <h4>Below is more information about the choosen claim :</h4>
+    <h4><b>Name :</b> {{ClaimentName}}</h4>
+    <h4><b>ID : </b>{{ID}}</h4>
+    <h4><b>Number : </b>{{Number}}</h4>
+    <h4><b>AltNumber : </b>{{AltNumber}}</h4>
+    <h4><b>Date of claim : </b>{{Date.toDate()| date:'dd-MM-yyy'}}</h4>
+</div>
+<div mat-dialog-actions>
+    <button mat-button style="width: 100%;" mat-raised-button color="primary" (click)="confirm()">OK</button>
+</div>

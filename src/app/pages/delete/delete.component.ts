@@ -6,8 +6,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
   templateUrl: './delete.component.html',
   styleUrls: ['./delete.component.scss']
 })
-export class DeleteComponent implements OnInit {
-  Name;
+export class DeleteComponent implements OnInit { 
  ClaimentName;
   ID;
   AltNumber;
@@ -33,17 +32,9 @@ export class DeleteComponent implements OnInit {
     this.dialogRef.close();
     
   }
-  Confirm1(){
-      this.db.collection('users').doc(this.UID).set({
-      displayName: this.Name,
-      id: this.ID,
-      userid: this.UID,
-     
-     }).catch(error=>{
-       alert(error.message)
-     })
-    this.db.collection('claims doc').add(this.data);
-    this.db.collection('claims doc').doc(this.UID).delete(); 
+  Confirm1(){ 
+    this.db.collection('Rejected Claims').add(this.data);
+    this.db.collection('claims doc').doc(this.UID).delete();  
     this.dialogRef.close();
   }
 }

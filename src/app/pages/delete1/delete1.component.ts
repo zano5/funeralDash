@@ -36,16 +36,8 @@ export class Delete1Component implements OnInit {
     
   }
   Confirm2(){
-      this.db.collection('users').doc(this.UID).set({
-      displayName: this.Name,
-      email: this.Email,
-      id: this.ID,
-      userid: this.UID,
-      plan:this.Plan
-     }).catch(error=>{
-       alert(error.message)
-     })
-    this.db.collection('Approved Purchases').add(this.data);
+ 
+    this.db.collection('Rejected Purchases').add(this.data);
     this.db.collection('Purchase').doc(this.UID).delete(); 
     this.dialogRef.close();
   }
