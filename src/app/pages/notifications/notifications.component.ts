@@ -43,7 +43,7 @@ export class NotificationsComponent implements OnInit {
     // console.log('Accept'); 
     this.openDialog(claimsdoc);
   }
-  Reject(itemId){ 
+  Reject(itemId){  
     this.angularFirestore.collection('claims doc').doc(itemId).delete();  
     this.RetrieveClaims();
   }

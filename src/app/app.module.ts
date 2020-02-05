@@ -26,7 +26,7 @@ import { ConfirmDialogComponent } from './pages/confirm-dialog/confirm-dialog.co
 import { Confirm2Component } from './pages/confirm2/confirm2.component';
 import { DeleteComponent } from './pages/delete/delete.component';
 import { Delete1Component } from './pages/delete1/delete1.component';
-
+import * as Chart from 'chart.js';
 
 
 @NgModule({

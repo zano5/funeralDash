@@ -12,6 +12,25 @@ import { Router } from '@angular/router';
   templateUrl: "dashboard.component.html"
 })
 export class DashboardComponent implements OnInit {
+  itemList: any[];
+  
+  users: any;
+
+  barChart: any;
+  config: any;
+  collection = { count: 60, data: [] };
+
+   // collection={data[]};
+   chart:any = [];
+   dlist =[];
+   item: any;
+   boy: number=0;
+   girl: number=0;
+   other: number=0;
+   pay:number=0;
+   item1:number=0;
+
+  // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   public canvas : any;
   public ctx;
   public datasets: any;
@@ -20,6 +39,9 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
   public clicked2: boolean = false;
+  userData;
+  female:number=0;
+  male: number=0;
 
   policyData;
   standard: number = 0;
@@ -48,7 +70,185 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/user'], {queryParams:{key: key, }})
   }
 
+  myChart:any;
+  Chart:any=[];
+ f=[];
+ x;
+ gender;
+ type;
+ // age;
+ b: number = 0;
+ w: number = 0;
+ c: number = 0;
+ mw: number=0;fw: number=0;ow: number=0;
+ mc: number=0;fc: number=0;oc: number=0;
+ mb: number=0;fb: number=0;ob: number=0;
+   
+
   ngOnInit() {
+
+
+    this.firestore.collection('users').valueChanges().subscribe((data:any)=>{
+      console.log(data)
+     this.f=[{data}]
+      console.log(this.f[0].data[0]);
+      for(let i=0;i<data.length ;i++){
+        let gender=data[i].gender;
+        // let race=data[i].ethnicity;
+
+// calculation for gender
+if(gender == 'male'){
+  this.boy = this.boy +1
+  console.log(this.boy)
+}
+else if(gender == 'female'){
+  this.girl = this.girl +1
+  console.log(this.girl)
+}
+else{
+  this.other = this.other+1
+  console.log(this.other)
+}
+    this.myChart = new Chart('myChart', {
+        type: 'bar',
+        data: {
+            labels: ['Female', 'Male', 'Others'],
+            datasets: [{
+                label: '#Gender ',
+                data: [this.girl,this.boy,this.other],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+  }
+})
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+// this.angularfire.collection('donation').valueChanges().subscribe((data:any)=>{
+//   console.log(data)
+//  this.f=[{data}]
+//   console.log(this.f[0].data[0]);
+//   for(let i=0;i<data.length ;i++){
+//     let type=data[i].type;
+//     // let race=data[i].ethnicity;
+
+// // calculation for gender
+// if(type == 'money'){
+// this.pay = this.pay +1
+// console.log(this.pay)
+// }
+// else if(type == 'items'){
+// this.item1 = this.item1 + 0
+// console.log(this.item1)
+// }
+// else{
+// this.other = this.other+1
+// console.log(this.other)
+// }
+// this.Chart = new Chart('Chart', {
+//     type: 'pie',
+//     data: {
+//         labels: ['money', 'items', 'Others'],
+//         datasets: [{
+//             label: '# Donation',
+//             data: [this.pay,this.item1,this.other],
+//             backgroundColor: [
+//                 'rgba(255, 99, 132, 0.2)',
+//                 'rgba(54, 162, 235, 0.2)',
+//                 'rgba(255, 206, 86, 0.2)',
+//                 'rgba(75, 192, 192, 0.2)',
+//                 'rgba(153, 102, 255, 0.2)',
+//                 'rgba(255, 159, 64, 0.2)'
+//             ],
+//             borderColor: [
+//                 'rgba(255, 99, 132, 1)',
+//                 'rgba(54, 162, 235, 1)',
+//                 'rgba(255, 206, 86, 1)',
+//                 'rgba(75, 192, 192, 1)',
+//                 'rgba(153, 102, 255, 1)',
+//                 'rgba(255, 159, 64, 1)'
+//             ],
+//             borderWidth: 1
+//         }]
+//     },
+//     options: {
+//         scales: {
+//             yAxes: [{
+//                 ticks: {
+//                     beginAtZero: true
+//                 }
+//             }]
+//         }
+//     }
+// });
+// }
+// })
+
+// var chart = new Chart("chart", {
+//     type: 'pie',
+//     data: {
+//         labels: ['Pretoria', 'Limpopo', 'Mphumalanga', 'Durban', 'Capetown', 'Johhansburg'],
+//         datasets: [{
+//             label: '# of Votes',
+//             data: [12, 19, 3, 5, 2, 3],
+//             backgroundColor: [
+//                 'rgba(255, 99, 132, 0.2)',
+//                 'rgba(54, 162, 235, 0.2)',
+//                 'rgba(255, 206, 86, 0.2)',
+//                 'rgba(75, 192, 192, 0.2)',
+//                 'rgba(153, 102, 255, 0.2)',
+//                 'rgba(255, 159, 64, 0.2)'
+//             ],
+//             borderColor: [
+//                 'rgba(255, 99, 132, 1)',
+//                 'rgba(54, 162, 235, 1)',
+//                 'rgba(255, 206, 86, 1)',
+//                 'rgba(75, 192, 192, 1)',
+//                 'rgba(153, 102, 255, 1)',
+//                 'rgba(255, 159, 64, 1)'
+//             ],
+//             borderWidth: 1
+//         }]
+//     },
+//     options: {
+//         scales: {
+//             yAxes: [{
+//                 ticks: {
+//                     beginAtZero: true
+//                 }
+//             }]
+//         }
+//     }
+// });
+
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     
     var gradientChartOptionsConfigurationWithTooltipBlue: any = {
       maintainAspectRatio: false,
@@ -324,6 +524,8 @@ export class DashboardComponent implements OnInit {
         }]
       }
     };
+// ??????????????????????????????????????????????????????????????????????
+
 
     this.canvas = document.getElementById("chartLineRed");
     this.ctx = this.canvas.getContext("2d");
@@ -335,7 +537,7 @@ export class DashboardComponent implements OnInit {
     gradientStroke.addColorStop(0, 'rgba(233,32,16,0)'); //red colors
 
     var data = {
-      labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
       datasets: [{
         label: "Data",
         fill: true,
@@ -408,6 +610,10 @@ export class DashboardComponent implements OnInit {
       [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120],
       [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130]
     ];
+ 
+
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
     this.data = this.datasets[0];
 
     this.canvas = document.getElementById("CountryChart");
@@ -417,7 +623,6 @@ export class DashboardComponent implements OnInit {
     gradientStroke.addColorStop(1, 'rgba(29,140,248,0.2)');
     gradientStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
     gradientStroke.addColorStop(0, 'rgba(29,140,248,0)'); //blue colors
-
 
     this.firestore.collection('Approved Purchases').valueChanges().subscribe((data: any) => { 
 
@@ -463,4 +668,7 @@ export class DashboardComponent implements OnInit {
     this.myChartData.data.datasets[0].data = this.data;
     this.myChartData.update();
    }
+
+
+
 }
